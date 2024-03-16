@@ -10,13 +10,21 @@ Public Class Form1
 
         ' un comment this to have it run when the app is launched
         ' call each of the functions that are needed to copy the data
-        If Not OpenMasterFile() Then End
 
-        If Not CopyMasterData() Then End
+        Dim args As String() = Environment.GetCommandLineArgs() ' pull in any passed arguments
 
-        CloseMasterFile()
+        ' if there is at least 2 argument then automatically run the code
+        ' the exe is passed a DLL name while running in VS
+        If args.Length > 1 Then
 
-        End
+            If Not OpenMasterFile() Then End
+
+            If Not CopyMasterData() Then End
+
+            CloseMasterFile()
+
+            End
+        End If
 
     End Sub
 
