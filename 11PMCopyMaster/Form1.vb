@@ -54,7 +54,7 @@ Public Class Form1
 
     Private Sub WriteToLog(writeText As String)
         ' this sub simply opens a text file for appending
-        ' adds a time staps and whatever the write text is to a log file
+        ' adds a time stamps and whatever the write text is to a log file
 
         Dim logFile As New IO.StreamWriter(Application.StartupPath & "11pmCopyLog.txt", True)
 
@@ -74,7 +74,7 @@ Public Class Form1
         ' modify the code directly
         Dim masterSheetName As String = "Master"
         Dim masterCellForNewName As String = "D1"
-        Dim masterFromCopyRange As String = "D3:D5"
+        Dim masterCopyFromRange As String = "D3:D5"
         Dim newSheetCopyToRange As String = "A2:A4"
 
         Dim xlMasterSheet As Excel.Worksheet = _xlMasterFile.Worksheets(masterSheetName)
@@ -87,7 +87,7 @@ Public Class Form1
         Try
             WriteToLog($"Copying Master Sheet Data")
 
-            ' create a new sheet for the data
+            ' create a new sheet for the data - after the master sheet
             currentCodeAttempt = "Adding new sheet"
             _xlMasterFile.Worksheets.Add(, xlMasterSheet)
             xlNewSheet = _xlMasterFile.Worksheets(_xlMasterFile.Worksheets.Count)
@@ -95,11 +95,11 @@ Public Class Form1
 
             ' add a title row to the new sheet
             currentCodeAttempt = "Adding title to new sheet"
-            xlNewSheet.Range("A1").Value = "Totals"
+            xlNewSheet.Range("A1").Value = "Totals"   ' ********* need to modify where the row heading(s) go
 
             ' copy the values to the new sheet
             currentCodeAttempt = "Copying data to the new sheet"
-            xlMasterSheet.Range(masterFromCopyRange).Copy()
+            xlMasterSheet.Range(masterCopyFromRange).Copy()
             xlNewSheet.Range(newSheetCopyToRange).PasteSpecial(Excel.XlPasteType.xlPasteValues)
 
             ' save the master file with the new sheet
